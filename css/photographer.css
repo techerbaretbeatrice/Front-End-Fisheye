@@ -2,12 +2,29 @@
     display: none;
 }
 
-.photograph-header {
+
+ .photographer_infos {
+    display: flex;
+   flex-direction: row;
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+    align-items: center;
+    justify-content: space-around;
 }
 
+
+.photographer_infos .photographer_img{
+    height: 200px;
+    width: 200px;
+    border-radius: 100px;
+    object-fit: cover;
+}
+
+.contact_container{
+    display: flex;
+    justify-content: center;
+}
 .contact_button {
     font-size: 20px;
     font-weight: bold;

@@ -24,27 +24,45 @@ h1 {
     margin-left: 100px;
 }
 
-.photographer_section {
+p{
+    margin: 0px;
+}
+
+#main {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 70px;
     margin-top: 100px;
 }
 
-.photographer_section article {
+#main .photographer_card a {
     justify-self: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    text-decoration: none;
 }
 
-.photographer_section article h2 {
+#main .photographer_card  .photographer_name  {
     color: #D3573C;
     font-size: 36px;
+    text-decoration: none ;
+    margin-bottom: 0px;
 }
 
-.photographer_section article img {
+#main .photographer_card .photographer_img  {
     height: 200px;
     width: 200px;
+    border-radius: 100px;
+    object-fit: cover;
+}
+
+.photographer_info{
+    text-align: center;
+}
+
+.photographer_city{
+    color: #D3573C;
+    font-size: 13px;
 }
