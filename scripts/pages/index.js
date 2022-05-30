@@ -60,9 +60,9 @@ const Details = (photographer) => {
     <p class="photographer_city">${photographer.city}
     </p>
     <br>
-    <p>${photographer.tagline}</p>
+    <p class="tagline">${photographer.tagline}</p>
     <br>
-    <p>${photographer.price}€/jour</p>
+    <p class="price">${photographer.price}€/jour</p>
 `
     return details;
 }

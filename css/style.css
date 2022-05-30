@@ -1,8 +1,12 @@
 @import url("photographer.css");
 
 body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-family: "DM Sans", sans-serif;
     margin: 0;
+    width: 100%;
 }
 
 
@@ -12,16 +16,16 @@ header {
     justify-content: space-between;
     align-items: center;
     height: 90px;
+    max-width: 1240px;
+    width: 100%;
 }
 
 h1 {
     color: #901C1C;
-    margin-right: 100px;
 }
 
 .logo {
     height: 50px;
-    margin-left: 100px;
 }
 
 p{
@@ -32,7 +36,10 @@ p{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 70px;
+    grid-row-gap: 100px;
     margin-top: 100px;
+    max-width: 1440px;
+    width: 100%;
 }
 
 #main .photographer_card a {
@@ -49,6 +56,9 @@ p{
     font-size: 36px;
     text-decoration: none ;
     margin-bottom: 0px;
+    line-height: 47px;
+    font-weight: 400;
+    font-style: normal;
 }
 
 #main .photographer_card .photographer_img  {
@@ -65,4 +75,16 @@ p{
 .photographer_city{
     color: #D3573C;
     font-size: 13px;
+    line-height: 17px;
+}
+
+.tagline{
+    font-size : 10px;
+    line-height: 13px;
+}
+
+.price{
+    font-size: 9px;
+    line-height: 12px;
+    color: #757575;
 }
