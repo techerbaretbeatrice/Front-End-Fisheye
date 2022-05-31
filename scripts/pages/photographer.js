@@ -107,8 +107,8 @@ const displayMedia = () => {
             console.log("comparaison like", a.likes < b.likes)
             switch (order) {
                 case 'popularity': 
-                    if (a.likes < b.likes) return -1;
-                    if (a.likes >= b.likes) return 1;   
+                    if (a.likes < b.likes) return 1;
+                    if (a.likes >= b.likes) return -1;   
                   break;
                 case 'date':
                     if (a.date < b.date) return -1 ;
@@ -284,6 +284,7 @@ const SortSelect = () => {
         title.style.display = "block";
         angleOpen.style.display= "none";
         angleClose.style.display = "flex";
+       
      }
 
      angleClose.addEventListener("click",closeSelectContainer)

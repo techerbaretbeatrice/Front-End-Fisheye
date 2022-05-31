@@ -3,12 +3,18 @@
  function modalOpen () {
     const modalContact = document.getElementById("contact_modal");
     modalContact.style.display = "flex";
+    const bodyScreen = document.getElementById('body_screen')
+    bodyScreen.style.display = "flex"
+    console.log(bodyScreen)
 
 }
 
 function modalClose () {
     const modalContact = document.getElementById("contact_modal");
     modalContact.style.display = "none"
+    const bodyScreen = document.getElementById('body_screen')
+    bodyScreen.style.display = "none"
+    
 }
 
 //entête du formulaire contient un texte suivi du nom du photographe
@@ -37,8 +43,38 @@ const ContactForm = () => {
     const formField = document.createElement('div')
     formField.setAttribute("id","form_field")
     form.appendChild(formField)
-    const label = document.createElement('label')
-    const input= document.createElement('input')  
+    const labelName = document.createElement('label')
+    formField.appendChild(labelName)
+    labelName.textContent = "Nom"
+    const inputName= document.createElement('input')
+    formField.appendChild(inputName) 
+    const labelFirst = document.createElement('label')
+    formField.appendChild(labelFirst)
+    labelFirst.textContent = "Prénom"
+    const inputFirst= document.createElement('input')
+    formField.appendChild(inputFirst)
+    const labelEmail = document.createElement('label')
+    formField.appendChild(labelEmail)
+    labelEmail.textContent = "Email"
+    const inputEmail= document.createElement('input')
+    formField.appendChild(inputEmail) 
+    const labelText = document.createElement('label')
+    formField.appendChild(labelText)
+    labelText.textContent = "Message"
+    const inputText= document.createElement('textarea')
+    inputText.setAttribute("class","input_text")
+    formField.appendChild(inputText)
+    const sendButton = document.createElement('button')
+    sendButton.setAttribute("class"," send_button")
+    sendButton.textContent = "Envoyer"
+    formField.appendChild(sendButton)
+    
+    form.addEventListener("submit",submitForm)
+
+    function submitForm () {
+       
+    }
+    
     return form;
 }
 

@@ -1,9 +1,20 @@
+
+#body_screen{
+    display: none;
+    position: fixed;
+    z-index: 109;
+    background-color: rgba(196, 196, 196, 0.4);
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
 #contact_modal {
     display: none;
 }
 
 body{
     position: relative;
+    box-sizing: border-box;
    
 }
 #photographer_header img .logo{
@@ -187,8 +198,8 @@ body{
     z-index: 102;
     width: 16px;
     height: 10px;
-    right: 5px;
-    top: 10px;
+    right: 10px;
+    top: 25px;
     cursor: pointer;  
 }
 
@@ -252,14 +263,16 @@ margin-bottom: 15px;
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
-    width: 50%;
+    width: 669px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 35px;
-    margin: auto;
+    margin-left: 35px;
+    margin-right: 35px;
     position: fixed;
-    z-index: 100;
+    z-index: 110;
+    top: 0;
+    box-shadow: 2px 2px 6px #c1c0c0;
     
 }
 
@@ -290,6 +303,8 @@ margin-bottom: 15px;
     text-align: start;
     color: #312E2E;
     margin-top: 0px;
+    margin-bottom: 20px;
+    margin-left: 35px;
 }
 
 form {
@@ -302,6 +317,7 @@ form {
 form label {
     color: #312E2E;
     font-size: 36px;
+    margin-left: 35px;
 }
 
 form div {
@@ -313,8 +329,30 @@ form div {
 }
 
 form input {
-    width: 100%;
+    width: 599px;
     height: 68px;
     border: none;
     border-radius: 5px;
+    margin-left: 35px;
+}
+
+.input_text{
+    width: 599px;
+    height: 170px;
+    margin-left: 35px;
+    border-radius: 5px;
+}
+
+.send_button{
+    width: 170px;
+    height: 69px;
+    background-color: #901C1C;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 26px;
+    margin-left: 35px;
+    border: none;
 }
