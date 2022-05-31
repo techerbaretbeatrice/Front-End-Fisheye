@@ -164,7 +164,7 @@ body{
 
 .select_container{
     position: absolute;
-    left: 170px;
+    left: 300px;
     display: flex;
     flex-direction: column;
     width: 170px;

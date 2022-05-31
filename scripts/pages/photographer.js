@@ -97,7 +97,7 @@ displayPhotographer()
 const displayMedia = () => {
     const data = fetchData()
     const media = data.media
-    const photographer =  photographers.find(photographer => photographer.id === Number(photographerId))
+    const photographer =  data.photographers.find(photographer => photographer.id === Number(photographerId))
     console.log(photographer)
     const medias = media
         .filter(medias => medias.photographerId === Number(photographerId))
@@ -231,7 +231,7 @@ const NumberOfLike = (media) => {
     numberOfLike.textContent = media.likes
     const iconLike = document.createElement('img')
     iconLike.setAttribute("class", "icon_like")
-    iconLike.src = "assets/icons/heart-solid2.svg"
+    iconLike.src = "assets/icons/heart-solid.svg"
     likeContainer.appendChild(numberOfLike)
     likeContainer.appendChild(iconLike)
     iconLike.addEventListener("click", () => {
