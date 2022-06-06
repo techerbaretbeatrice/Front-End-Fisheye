@@ -105,6 +105,14 @@ body{
     border-radius: 5px;
 }
 
+.video_media{
+    width: 350px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+}  
+
+
 .media_all{
     display: flex;
     flex-direction: column-reverse;
@@ -164,18 +172,45 @@ body{
     border-radius: 5px;
     Width: 376px;
     Height: 89px;
+    display: flex;
+    flex-direction: row;
 }
+.infos_likes{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    font-size: 24px;
+    font-weight: 500;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.likes{
+    Width: 17.5px;
+    Height: 18.35px;
+}
+
+.photographer_price{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 500;
+}
+
 
 .filter_container{
     display: flex;
     flex-direction: row;
     width: 100%;
     height:100px;
+    position: relative;
 }
 
 .select_container{
     position: absolute;
-    left: 300px;
+    left: 100px;
     display: flex;
     flex-direction: column;
     width: 170px;
@@ -214,6 +249,16 @@ body{
     cursor: pointer;  
 }
 
+.item_select{
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 700;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 15px;   
+}
+
 .popularity{
     text-decoration: none;
     color: #FFFFFF;
@@ -222,6 +267,7 @@ body{
     margin-left: 20px;
     margin-top: 20px;
     margin-bottom: 15px;
+    display: none;
 }
 
 .date{
@@ -264,12 +310,13 @@ margin-bottom: 15px;
     border-radius: 5px;
     background-color: #DB8876;
     width: 669px;
+    height: 900px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-left: 35px;
     margin-right: 35px;
-    position: fixed;
+    position: absolute;
     z-index: 110;
     top: 0;
     box-shadow: 2px 2px 6px #c1c0c0;

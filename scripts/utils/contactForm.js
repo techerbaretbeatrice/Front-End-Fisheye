@@ -7,6 +7,7 @@
     bodyScreen.style.display = "flex"
     console.log(bodyScreen)
 
+
 }
 
 function modalClose () {
@@ -14,6 +15,7 @@ function modalClose () {
     modalContact.style.display = "none"
     const bodyScreen = document.getElementById('body_screen')
     bodyScreen.style.display = "none"
+    
     
 }
 
@@ -47,22 +49,26 @@ const ContactForm = () => {
     formField.appendChild(labelName)
     labelName.textContent = "Nom"
     const inputName= document.createElement('input')
+    inputName.setAttribute("name","lastname")
     formField.appendChild(inputName) 
     const labelFirst = document.createElement('label')
     formField.appendChild(labelFirst)
     labelFirst.textContent = "Prénom"
     const inputFirst= document.createElement('input')
+    inputFirst.setAttribute("name","firstname")
     formField.appendChild(inputFirst)
     const labelEmail = document.createElement('label')
     formField.appendChild(labelEmail)
     labelEmail.textContent = "Email"
     const inputEmail= document.createElement('input')
+    inputEmail.setAttribute("name","email")
     formField.appendChild(inputEmail) 
     const labelText = document.createElement('label')
     formField.appendChild(labelText)
     labelText.textContent = "Message"
     const inputText= document.createElement('textarea')
     inputText.setAttribute("class","input_text")
+    inputText.setAttribute("name","message")
     formField.appendChild(inputText)
     const sendButton = document.createElement('button')
     sendButton.setAttribute("class"," send_button")
@@ -71,8 +77,14 @@ const ContactForm = () => {
     
     form.addEventListener("submit",submitForm)
 
-    function submitForm () {
-       
+    function submitForm (event) {
+       event.preventDefault()
+       console.log(event.currentTarget.lastname.value)
+       console.log(event.currentTarget.firstname.value)
+       console.log(event.currentTarget.email.value)
+       console.log(event.currentTarget.message.value)
+    
+       form.reset()
     }
     
     return form;
@@ -89,9 +101,8 @@ const ModalForm = (photographer) => {
 
     contactButton.addEventListener("click", modalOpen);
     closeButton.addEventListener("click", modalClose);
-    // creer le header
+    
     displayHeaderForm(photographer)
-    // creer le formulaire
 
     modalContact.appendChild(ContactForm())
 

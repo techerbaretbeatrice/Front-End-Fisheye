@@ -154,7 +154,8 @@ const displayMedia = () => {
     filterContainer.appendChild(SortSelect())
     mediaAll.appendChild(filterContainer);
     console.log(filterContainer);
-    mediaContainer.appendChild(StaticInfos(medias, photographer))
+    const staticInfos = StaticInfos(medias, photographer)
+    mediaContainer.appendChild(staticInfos)
     for (let media of medias) {
         const mediaBox = MediaBox(media)
         mediaContainer.appendChild(mediaBox)
@@ -162,26 +163,36 @@ const displayMedia = () => {
     }
 
 }
-
+ // faire la somme des likes par media
+    // Array.reduce sur medias
+    // const totalLikes = medias.reduce
 const StaticInfos = (medias, photographer) => {
     const staticInfos = document.createElement('div')
     staticInfos.setAttribute("class", "static_infos")
     const infosLikes = document.createElement('div')
     infosLikes.setAttribute("class","infos_likes")
-    staticInfos.appendChild(infosLikes)
-    console.log(infosLikes)
     const likes = document.createElement('img')
     likes.setAttribute("class","likes")
+    likes.src = "assets/icons/heart-solid-black.svg"
+    const likeCount = document.createElement("div")
+    likeCount.setAttribute("id","like_count")
+    const photographerPrice = document.createElement('div')
+    photographerPrice.setAttribute("class","photographer_price")
+    infosLikes.appendChild(likeCount)
+    staticInfos.appendChild(infosLikes)
+    staticInfos.appendChild(photographerPrice)
+    console.log(photographerPrice)
+    console.log(infosLikes)
     infosLikes.appendChild(likes)
     const totalLikes = medias.reduce(
         (previousValue, currentValue) => previousValue + currentValue.likes, 
         0
     );
     console.log(totalLikes)
-    staticInfos.textContent = totalLikes
-    // faire la somme des likes par media
-    // Array.reduce sur medias
-    // const totalLikes = medias.reduce .... https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+    likeCount.textContent = totalLikes
+    photographerPrice.textContent = `${photographer.price}€/jour`
+
+
     return staticInfos;
 }
 
@@ -192,7 +203,9 @@ const MediaBox = (media) => {
     photoBox.setAttribute("class", "photo_box")
     const photoParameters = document.createElement('div')
     photoParameters.setAttribute("class", "photo_parameters")
-    const photoMedia = PhotoMedia(media)
+    // il faut appeler un composant abstrait ThumbnailMedia
+    //const photoMedia = PhotoMedia(media)
+    const thumbnailMedia = ThumbnailMedia(media)
     const photoDescription = PhotoDescription(media)
     const numberOfLike = NumberOfLike(media)
 
@@ -201,10 +214,36 @@ const MediaBox = (media) => {
     mediaBox.appendChild(photoParameters)
     photoParameters.appendChild(photoDescription)
     photoParameters.appendChild(numberOfLike)
-    photoBox.appendChild(photoMedia)
+    //photoBox.appendChild(photoMedia)
+    photoBox.appendChild(thumbnailMedia)
 
     return mediaBox
 }
+
+/**
+ * 
+ * ThumbnailMedia
+ * va verifier si media.image exist => va retourner un PhotoMedia
+ * sinon, si media.video exist => va retourner un VideoMedia
+ */
+const ThumbnailMedia = (media) => {
+    if(media.image){
+        return PhotoMedia(media)    
+    }
+    if(media.video){
+        return VideoMedia(media)
+    }
+}
+
+const VideoMedia = (media) => {
+    const videoMedia = document.createElement('video')
+    videoMedia.setAttribute("class","video_media")
+
+    videoMedia.src =  `assets/images/${media.photographerId}/${media.video}`
+     
+    return videoMedia
+}
+ 
 
 const PhotoMedia = (media) => {
     const photoMedia = document.createElement('img')
@@ -237,23 +276,46 @@ const NumberOfLike = (media) => {
     iconLike.addEventListener("click", () => {
         media.likes++
         numberOfLike.textContent = media.likes
+        const likeCount = document.getElementById("like_count")
+        likeCount.textContent = Number(likeCount.textContent)+1
     })
     return likeContainer
 
 }
 
 const SortSelect = () => {
+    let opened = false
+    
+    let selectTitle = "Popularité"
+    switch(order) {
+
+        case "popularity":
+            selectTitle = "Popularité"
+            break
+
+        case "date":
+            selectTitle = "Date"
+            break
+
+        case "title":
+            selectTitle = "titre"
+            break
+        
+        default:
+            selectTitle = "Popularité" 
+            break
+    } 
     const selectContainer = document.createElement('div')
     selectContainer.setAttribute("class", "select_container")
-    const angleOpen = document.createElement('img')
-    const angleClose = document.createElement('img')
-    angleClose.setAttribute("class","angle_close")
-    angleClose.src = "assets/icons/angle-up-white.svg"
-
+    const angleOpen = document.createElement('img')    
     angleOpen.src = "assets/icons/angle-down-white.svg"
     angleOpen.setAttribute("class","angle_open")
     const selectList = document.createElement('nav')
     selectList.setAttribute("class", "select_list")
+    const itemSelect = document.createElement('a')
+    itemSelect.setAttribute("class","item_select")
+    itemSelect.textContent = selectTitle
+    itemSelect.href =  `photographer.html?photographer=${photographerId}&order=popularity`
     const popularity = document.createElement('a')
     popularity.setAttribute("class","popularity")
     const date = document.createElement('a')
@@ -266,35 +328,43 @@ const SortSelect = () => {
     date.href = `photographer.html?photographer=${photographerId}&order=date`
     title.textContent = 'titre'
     title.href = `photographer.html?photographer=${photographerId}&order=title`
+    selectList.appendChild(itemSelect)
     selectList.appendChild(popularity)
     selectList.appendChild(date)
     selectList.appendChild(title)
     selectContainer.appendChild(selectList)
     selectContainer.appendChild(angleOpen)
-    selectContainer.appendChild(angleClose)
+   
+    console.log(itemSelect)
     
-    
-  
+    angleOpen.addEventListener("click",openSelectContainerControl)
+       function openSelectContainerControl(ev) {
+                   
+            if(opened) {
+                opened = false
+                angleOpen.style.transform= "rotate(0deg)";
+                date.style.display = "none";
+                title.style.display = "none";
+                popularity.style.display = "none";
+                itemSelect.style.display = "block";
+               
+            } else {
+                opened = true
+                angleOpen.style.transform= "rotate(180deg)";
+                date.style.display = "block";
+                title.style.display = "block";
+                popularity.style.display = "block";
+                itemSelect.style.display = "none"
+        
 
-    angleOpen.addEventListener("click",openSelectContainer)
-
-     function openSelectContainer () {
-      
-        date.style.display = "block";
-        title.style.display = "block";
-        angleOpen.style.display= "none";
-        angleClose.style.display = "flex";
-       
+            }
+            
+          
      }
 
-     angleClose.addEventListener("click",closeSelectContainer)
 
-     function closeSelectContainer() {
-        date.style.display = "none";
-        title.style.display = "none";
-        angleClose.style.display = "none";
-        angleOpen.style.display = "flex"
-     }
+
+    
    
 
    
