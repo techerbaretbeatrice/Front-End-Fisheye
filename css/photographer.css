@@ -12,11 +12,21 @@
     display: none;
 }
 
-body{
+body {
+    width: 100%;
     position: relative;
     box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+
    
 }
+
 #photographer_header img .logo{
   margin-left: 300px;
 }
@@ -24,7 +34,9 @@ body{
 #photographer_main{
     display: flex;
     flex-direction: column;
-    align-items: center;   
+    align-items: center;
+    width: 100%; 
+    max-width: 1440px;  
 }
 .photographer_infos {
    
@@ -103,6 +115,7 @@ body{
     height: 300px;
     object-fit: cover;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .video_media{
@@ -110,26 +123,46 @@ body{
     height: 300px;
     object-fit: cover;
     border-radius: 5px;
+    cursor: pointer;
 }  
 
 
 .media_all{
     display: flex;
     flex-direction: column-reverse;
+    width: 100%;
+    max-width: 1240px;
+    align-items: center;
+    
 }
 .media_container{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 95px;
-    justify-content: space-evenly;
+    /*display: grid;
+    grid-template-columns: repeat(3, 350px);
+    column-gap: 95px;*/
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 95px;
     max-width: 1240px;
     width: 100%;
     position: relative;
+    margin: 0 auto;  
+}
+
+.media_box{
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+    margin: 0;
+   
 }
 
 .photo_parameters{
-    display:grid;
-    grid-template-columns: 13fr 1fr ;
+    /*display:grid;
+    grid-template-columns: 13fr 1fr ;*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 350px;
   
 }
 .photo_description{
@@ -203,7 +236,8 @@ body{
 .filter_container{
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 88%;
+    max-width: 1240px;
     height:100px;
     position: relative;
 }
@@ -217,10 +251,12 @@ body{
     min-height: 69px;
     background-color: #901C1C;
     border-radius: 5px;
+    margin-top: 5px;
 }
 
 .filter_head{
     position: absolute;
+    margin-top: 10px;
 }
 .select_list{
     display: flex;
@@ -335,7 +371,7 @@ margin-bottom: 15px;
 
 .modal_header {
     justify-content: flex-start;
-    width: 80%;
+    width: 90%;
   
 }
 
@@ -350,7 +386,7 @@ margin-bottom: 15px;
     text-align: start;
     color: #312E2E;
     margin-top: 0px;
-    margin-bottom: 20px;
+    margin-bottom: 19px;
     margin-left: 35px;
 }
 
@@ -402,4 +438,76 @@ form input {
     margin-top: 26px;
     margin-left: 35px;
     border: none;
+}
+
+#lightbox-modal{
+    max-width: 1440px;
+    width: 100%;
+    position: absolute;
+    z-index: 115;
+    background-color: #FFFFFF;
+    display: flex;    
+    justify-content: center;
+    height: 100%;
+    top: 0;
+    
+   
+}
+
+#lightbox-container{
+    width: 1253px;
+    height: 984px;
+    background-color: #FFFFFF;
+    border: solid  #95FFF9;
+    margin-top: 40px;
+   
+}
+
+#icon-previous{
+    Width: 48px;
+    Height: 29.64px;
+    cursor: pointer;
+    position: absolute;
+    top: 25%;
+}
+
+#icon-next{
+    Width: 48px;
+    Height: 29.64px;
+    cursor: pointer;
+    position: absolute;
+    right: 6.5%;
+    top: 25%;
+}
+
+#icon-close{
+    Width: 48px;
+    Height: 29.64px;
+    cursor: pointer;
+    position: absolute;
+    right: 6.5%;
+    top: 3%;
+}
+
+#media-lightbox{
+    width: 1050px;
+    height: 900px;
+    background-color: bisque;
+    position: relative;
+    top: 10px;
+    left: 100px; 
+}
+.media-element{
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+}
+
+#title-element {
+   
+   height: 31px;
+   margin: 0px; 
+   color: #901C1C;
+   font-size: 24px;
+   font-weight: 400;
 }

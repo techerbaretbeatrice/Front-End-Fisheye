@@ -97,7 +97,7 @@ displayPhotographer()
 const displayMedia = () => {
     const data = fetchData()
     const media = data.media
-    const photographer =  data.photographers.find(photographer => photographer.id === Number(photographerId))
+    const photographer = data.photographers.find(photographer => photographer.id === Number(photographerId))
     console.log(photographer)
     const medias = media
         .filter(medias => medias.photographerId === Number(photographerId))
@@ -106,38 +106,38 @@ const displayMedia = () => {
             console.log("b", b)
             console.log("comparaison like", a.likes < b.likes)
             switch (order) {
-                case 'popularity': 
+                case 'popularity':
                     if (a.likes < b.likes) return 1;
-                    if (a.likes >= b.likes) return -1;   
-                  break;
+                    if (a.likes >= b.likes) return -1;
+                    break;
                 case 'date':
-                    if (a.date < b.date) return -1 ;
-                    if (a.date >= b.date) return 1 ;
-         
-                  break
-         
+                    if (a.date < b.date) return -1;
+                    if (a.date >= b.date) return 1;
+
+                    break
+
                 case 'title':
                     if (a.title < b.title) return -1;
                     if (a.title >= b.title) return 1;
-               
-                 break;
-                
-                 default:
-         
-                 break;
-              }
+
+                    break;
+
+                default:
+
+                    break;
+            }
         })
-        console.log(medias.likes)
-      
+    console.log(medias.likes)
+
     //* fonction
     // * - selon la valeur de `order`:
-     //* retourner la comparaison de 
-     //*   - la date
-     //*   - la popularite
-     //*   - le titre
-     //* dans sort, les parametres sont 
-    
-     
+    //* retourner la comparaison de 
+    //*   - la date
+    //*   - la popularite
+    //*   - le titre
+    //* dans sort, les parametres sont 
+
+
     console.log(medias)
     const mediaAll = document.createElement('section')
     mediaAll.setAttribute("class", "media_all")
@@ -148,7 +148,7 @@ const displayMedia = () => {
     const filterContainer = document.createElement('div')
     filterContainer.setAttribute("class", "filter_container");
     const filterHead = document.createElement('label')
-    filterHead.setAttribute("class","filter_head")
+    filterHead.setAttribute("class", "filter_head")
     filterContainer.appendChild(filterHead)
     filterHead.textContent = "Trier par"
     filterContainer.appendChild(SortSelect())
@@ -156,28 +156,38 @@ const displayMedia = () => {
     console.log(filterContainer);
     const staticInfos = StaticInfos(medias, photographer)
     mediaContainer.appendChild(staticInfos)
-    for (let media of medias) {
-        const mediaBox = MediaBox(media)
+    for (let index in medias) {
+        const media = medias[index]
+        const mediaBox = MediaBox(media, (event) => {
+            console.log("click", event.currentTarget)
+            console.log(Object.keys(LightBox))
+            LightBox.open(medias, index)
+        })
         mediaContainer.appendChild(mediaBox)
         console.log(mediaBox)
     }
 
+
+    
+
+
+
 }
- // faire la somme des likes par media
-    // Array.reduce sur medias
-    // const totalLikes = medias.reduce
+// faire la somme des likes par media
+// Array.reduce sur medias
+// const totalLikes = medias.reduce
 const StaticInfos = (medias, photographer) => {
     const staticInfos = document.createElement('div')
     staticInfos.setAttribute("class", "static_infos")
     const infosLikes = document.createElement('div')
-    infosLikes.setAttribute("class","infos_likes")
+    infosLikes.setAttribute("class", "infos_likes")
     const likes = document.createElement('img')
-    likes.setAttribute("class","likes")
+    likes.setAttribute("class", "likes")
     likes.src = "assets/icons/heart-solid-black.svg"
     const likeCount = document.createElement("div")
-    likeCount.setAttribute("id","like_count")
+    likeCount.setAttribute("id", "like_count")
     const photographerPrice = document.createElement('div')
-    photographerPrice.setAttribute("class","photographer_price")
+    photographerPrice.setAttribute("class", "photographer_price")
     infosLikes.appendChild(likeCount)
     staticInfos.appendChild(infosLikes)
     staticInfos.appendChild(photographerPrice)
@@ -185,7 +195,7 @@ const StaticInfos = (medias, photographer) => {
     console.log(infosLikes)
     infosLikes.appendChild(likes)
     const totalLikes = medias.reduce(
-        (previousValue, currentValue) => previousValue + currentValue.likes, 
+        (previousValue, currentValue) => previousValue + currentValue.likes,
         0
     );
     console.log(totalLikes)
@@ -196,11 +206,12 @@ const StaticInfos = (medias, photographer) => {
     return staticInfos;
 }
 
-const MediaBox = (media) => {
+const MediaBox = (media, onclick) => {
     const mediaBox = document.createElement('div')
     mediaBox.setAttribute("class", "media_box")
     const photoBox = document.createElement('div')
     photoBox.setAttribute("class", "photo_box")
+    photoBox.addEventListener("click", onclick)
     const photoParameters = document.createElement('div')
     photoParameters.setAttribute("class", "photo_parameters")
     // il faut appeler un composant abstrait ThumbnailMedia
@@ -227,23 +238,23 @@ const MediaBox = (media) => {
  * sinon, si media.video exist => va retourner un VideoMedia
  */
 const ThumbnailMedia = (media) => {
-    if(media.image){
-        return PhotoMedia(media)    
+    if (media.image) {
+        return PhotoMedia(media)
     }
-    if(media.video){
+    if (media.video) {
         return VideoMedia(media)
     }
 }
 
 const VideoMedia = (media) => {
     const videoMedia = document.createElement('video')
-    videoMedia.setAttribute("class","video_media")
+    videoMedia.setAttribute("class", "video_media")
 
-    videoMedia.src =  `assets/images/${media.photographerId}/${media.video}`
-     
+    videoMedia.src = `assets/images/${media.photographerId}/${media.video}`
+
     return videoMedia
 }
- 
+
 
 const PhotoMedia = (media) => {
     const photoMedia = document.createElement('img')
@@ -264,7 +275,7 @@ const PhotoDescription = (media) => {
 // passer un fonction callback onclick
 const NumberOfLike = (media) => {
     const likeContainer = document.createElement("div")
-    likeContainer.setAttribute("class","like_container")
+    likeContainer.setAttribute("class", "like_container")
     const numberOfLike = document.createElement('span')
     numberOfLike.setAttribute("class", "number_of_like")
     numberOfLike.textContent = media.likes
@@ -277,7 +288,7 @@ const NumberOfLike = (media) => {
         media.likes++
         numberOfLike.textContent = media.likes
         const likeCount = document.getElementById("like_count")
-        likeCount.textContent = Number(likeCount.textContent)+1
+        likeCount.textContent = Number(likeCount.textContent) + 1
     })
     return likeContainer
 
@@ -285,9 +296,9 @@ const NumberOfLike = (media) => {
 
 const SortSelect = () => {
     let opened = false
-    
+
     let selectTitle = "Popularité"
-    switch(order) {
+    switch (order) {
 
         case "popularity":
             selectTitle = "Popularité"
@@ -300,28 +311,28 @@ const SortSelect = () => {
         case "title":
             selectTitle = "titre"
             break
-        
+
         default:
-            selectTitle = "Popularité" 
+            selectTitle = "Popularité"
             break
-    } 
+    }
     const selectContainer = document.createElement('div')
     selectContainer.setAttribute("class", "select_container")
-    const angleOpen = document.createElement('img')    
+    const angleOpen = document.createElement('img')
     angleOpen.src = "assets/icons/angle-down-white.svg"
-    angleOpen.setAttribute("class","angle_open")
+    angleOpen.setAttribute("class", "angle_open")
     const selectList = document.createElement('nav')
     selectList.setAttribute("class", "select_list")
     const itemSelect = document.createElement('a')
-    itemSelect.setAttribute("class","item_select")
+    itemSelect.setAttribute("class", "item_select")
     itemSelect.textContent = selectTitle
-    itemSelect.href =  `photographer.html?photographer=${photographerId}&order=popularity`
+    itemSelect.href = `photographer.html?photographer=${photographerId}&order=popularity`
     const popularity = document.createElement('a')
-    popularity.setAttribute("class","popularity")
+    popularity.setAttribute("class", "popularity")
     const date = document.createElement('a')
     date.setAttribute("class", "date")
     const title = document.createElement('a')
-    title.setAttribute("class","title")
+    title.setAttribute("class", "title")
     popularity.textContent = 'Popularité'
     popularity.href = `photographer.html?photographer=${photographerId}&order=popularity`
     date.textContent = 'Date'
@@ -334,41 +345,41 @@ const SortSelect = () => {
     selectList.appendChild(title)
     selectContainer.appendChild(selectList)
     selectContainer.appendChild(angleOpen)
-   
+
     console.log(itemSelect)
-    
-    angleOpen.addEventListener("click",openSelectContainerControl)
-       function openSelectContainerControl(ev) {
-                   
-            if(opened) {
-                opened = false
-                angleOpen.style.transform= "rotate(0deg)";
-                date.style.display = "none";
-                title.style.display = "none";
-                popularity.style.display = "none";
-                itemSelect.style.display = "block";
-               
-            } else {
-                opened = true
-                angleOpen.style.transform= "rotate(180deg)";
-                date.style.display = "block";
-                title.style.display = "block";
-                popularity.style.display = "block";
-                itemSelect.style.display = "none"
-        
 
-            }
-            
-          
-     }
+    angleOpen.addEventListener("click", openSelectContainerControl)
+    function openSelectContainerControl(ev) {
+
+        if (opened) {
+            opened = false
+            angleOpen.style.transform = "rotate(0deg)";
+            date.style.display = "none";
+            title.style.display = "none";
+            popularity.style.display = "none";
+            itemSelect.style.display = "block";
+
+        } else {
+            opened = true
+            angleOpen.style.transform = "rotate(180deg)";
+            date.style.display = "block";
+            title.style.display = "block";
+            popularity.style.display = "block";
+            itemSelect.style.display = "none"
 
 
+        }
 
-    
-   
 
-   
-   
+    }
+
+
+
+
+
+
+
+
 
     return selectContainer;
 }
