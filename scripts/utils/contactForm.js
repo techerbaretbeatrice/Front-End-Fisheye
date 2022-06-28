@@ -1,13 +1,15 @@
 /* eslint-disable quotes */
-
+// ouvrir la modale
 function modalOpen () {
   const modalContact = document.getElementById("contact_modal")
   modalContact.style.display = "flex"
   const bodyScreen = document.getElementById('body_screen')
   bodyScreen.style.display = "flex"
+  // document.getElementById('input-name').focus()
   console.log(bodyScreen)
 }
 
+// fermer la modale
 function modalClose () {
   const modalContact = document.getElementById("contact_modal")
   modalContact.style.display = "none"
@@ -15,13 +17,17 @@ function modalClose () {
   bodyScreen.style.display = "none"
 }
 
-// entête du formulaire contient un texte suivi du nom du photographe
-const displayHeaderForm = (photographer) => {
+// fonction affichant la modale et son contenu
+const displayForm = (photographer) => {
   const modalHeader = ModalHeader(photographer)
   const modalContact = document.getElementById("contact_modal")
+  modalContact.setAttribute('tabindex', '0')
+  modalContact.setAttribute('aria-description', 'formulaire de contact photographe')
+  modalContact.setAttribute('aria-label', 'form')
   modalContact.appendChild(modalHeader)
 }
 
+// creation de l'entête du formulaire de contact
 const ModalHeader = (photographer) => {
   const modalHeader = document.createElement('div')
   modalHeader.setAttribute("class", "modal_header")
@@ -34,7 +40,7 @@ const ModalHeader = (photographer) => {
 
   return modalHeader
 }
-
+// creation du formulaire de contact
 const ContactForm = () => {
   const form = document.createElement('form')
   form.setAttribute("id", "form")
@@ -44,26 +50,33 @@ const ContactForm = () => {
   const labelName = document.createElement('label')
   formField.appendChild(labelName)
   labelName.textContent = "Nom"
+  labelName.setAttribute('for', 'input-name')
   const inputName = document.createElement('input')
+  inputName.setAttribute('id', 'input-name')
   inputName.setAttribute("name", "lastname")
   formField.appendChild(inputName)
   const labelFirst = document.createElement('label')
   formField.appendChild(labelFirst)
   labelFirst.textContent = "Prénom"
+  labelFirst.setAttribute('for', 'input-first')
   const inputFirst = document.createElement('input')
   inputFirst.setAttribute("name", "firstname")
+  inputFirst.setAttribute('id', 'input-first')
   formField.appendChild(inputFirst)
   const labelEmail = document.createElement('label')
   formField.appendChild(labelEmail)
   labelEmail.textContent = "Email"
+  labelEmail.setAttribute('for', 'email')
   const inputEmail = document.createElement('input')
   inputEmail.setAttribute("name", "email")
+  inputEmail.setAttribute('id', 'email')
   formField.appendChild(inputEmail)
   const labelText = document.createElement('label')
   formField.appendChild(labelText)
   labelText.textContent = "Message"
+  labelText.setAttribute('for', 'input-text')
   const inputText = document.createElement('textarea')
-  inputText.setAttribute("class", "input_text")
+  inputText.setAttribute("id", "input-text")
   inputText.setAttribute("name", "message")
   formField.appendChild(inputText)
   const sendButton = document.createElement('button')
@@ -71,6 +84,7 @@ const ContactForm = () => {
   sendButton.textContent = "Envoyer"
   formField.appendChild(sendButton)
 
+  // récupération des données du formulaire dans la console
   form.addEventListener("submit", submitForm)
 
   function submitForm (event) {
@@ -86,6 +100,7 @@ const ContactForm = () => {
   return form
 }
 
+// eslint-disable-next-line no-unused-vars
 const ModalForm = (photographer) => {
   const contactButton = document.getElementById("contact-button")
   const modalContact = document.getElementById("contact_modal")
@@ -93,14 +108,14 @@ const ModalForm = (photographer) => {
   const closeButton = document.createElement('input')
   closeButton.setAttribute("id", "close_button")
   closeButton.setAttribute('type', 'image')
-  closeButton.setAttribute('alt', 'fermer modale')
+  closeButton.setAttribute('alt', 'fermer formulaire de contact')
   closeButton.src = "assets/icons/xmark-white.svg"
   modalContact.appendChild(closeButton)
 
   contactButton.addEventListener("click", modalOpen)
   closeButton.addEventListener("click", modalClose)
 
-  displayHeaderForm(photographer)
+  displayForm(photographer)
 
   modalContact.appendChild(ContactForm())
 }

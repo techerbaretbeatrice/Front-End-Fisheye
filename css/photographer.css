@@ -81,10 +81,13 @@ body {
     font-size: 24px;
 }
 
-.tagline {
+#tagline {
+    font-size: 18px;
     color: #525252;
     font-weight: 400;
-    font-size: 18px;
+    line-height: 23px;
+
+
 }
 
 
@@ -257,6 +260,7 @@ body {
     max-width: 1240px;
     height: 100px;
     position: relative;
+    margin-top: 9px;
 }
 
 #select_container {
@@ -448,7 +452,7 @@ form input {
     margin-left: 35px;
 }
 
-.input_text {
+#input-text {
     width: 599px;
     height: 170px;
     margin-left: 35px;

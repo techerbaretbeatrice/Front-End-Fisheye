@@ -8,18 +8,12 @@
  * - la possibilité d'afficher et de cacher la lightbox: en cliquant sur une photo / cacher en cliquant sur l'icone croix
  * objectif: ecrire la lightbox sous forme de classe
  * methodes :
+ * -getinstance
  * - previous
  * - next
  * - open avec la liste des media, et l'index du media sur lequel le clic a ete fait
  * - close
- */
-
-/**
- * etape 1
- * - creer la classe
- * - instancier la lightbox dans displayMedias
- * - pour chaque mediaBox, on ajout l'évènement au click qui appelera la method open de la lightbox
- * resultat attendu: console log de la liste des medias et de l'index du media qui a genere l'évènement
+ * - displayMedia
  */
 
 class LightBoxSingleton {
@@ -57,6 +51,7 @@ class LightBoxSingleton {
       LightBox.getInstance().close()
     })
 
+    // navigation au clavier
     window.addEventListener('keydown', (event) => {
       if (event.code === 'ArrowRight') {
         LightBox.getInstance().next()
@@ -131,6 +126,7 @@ class LightBoxSingleton {
   }
 }
 
+// pattern factory permettant d' afficher le media selon sa nature (video ou photo)
 const CurrentMedia = (media) => {
   if (media.image) {
     return ImageMedia(media)

@@ -4,7 +4,7 @@ const photographerId = params.get('photographer')
 const order = params.get('order')
 console.info(photographerId)
 
-//
+// permet de récupérer et afficher les datas photographe
 const displayPhotographer = async () => {
   // eslint-disable-next-line no-undef
   const data = await fetchData()
@@ -47,6 +47,7 @@ const InfoCard = (photographer) => {
 const Title = (photographer) => {
   const title = document.createElement('h2')
   title.setAttribute('class', 'photographer_name name--size')
+  title.setAttribute('tabindex', '0')
   title.textContent = photographer.name
   console.log(title)
   return title
@@ -59,7 +60,7 @@ const Details = (photographer) => {
     <p class="photographer--city ">${photographer.city}
     </p>
     <br>
-    <p class="tagline">${photographer.tagline}</p> 
+    <p id="tagline">${photographer.tagline}</p> 
 `
   return details
 }
@@ -138,7 +139,9 @@ const displayMedia = async () => {
   document.getElementById('photographer_main').appendChild(mediaAll)
   const mediaContainer = document.createElement('div')
   mediaContainer.setAttribute('class', 'media_container')
+  mediaContainer.setAttribute('aria-description', 'liste des médias photos et vidéo')
   mediaContainer.setAttribute('role', 'listbox')
+  mediaContainer.setAttribute('tabindex', '0')
   const filterContainer = document.createElement('div')
   filterContainer.setAttribute('class', 'filter_container')
   const filterHead = document.createElement('label')
@@ -151,12 +154,13 @@ const displayMedia = async () => {
   console.log(filterContainer)
   const staticInfos = StaticInfos(medias, photographer)
   mediaContainer.appendChild(staticInfos)
+
+  // instancier la lightbox dans displayMedias
+  //  pour chaque mediaBox, on ajout l'évènement au click qui appelera la method open de la lightbox
+  // resultat attendu: console log de la liste des medias et de l'index du media qui a genere l'évènement
   for (const index in medias) {
     const media = medias[index]
     const mediaBox = MediaBox(media, (event) => {
-      console.log('click', event.currentTarget)
-      // eslint-disable-next-line no-undef
-      console.log(Object.keys(LightBox))
       // eslint-disable-next-line no-undef
       LightBox.open(medias, index)
     })
@@ -170,10 +174,13 @@ const displayMedia = async () => {
 const StaticInfos = (medias, photographer) => {
   const staticInfos = document.createElement('div')
   staticInfos.setAttribute('id', 'static_infos')
+  staticInfos.setAttribute('tabindex', '0')
+  staticInfos.setAttribute('aria-description', 'popularité et taux journalier moyen ')
   const infosLikes = document.createElement('div')
   infosLikes.setAttribute('class', 'infos_likes')
   const likes = document.createElement('img')
   likes.setAttribute('class', 'likes')
+  likes.setAttribute('alt', 'like')
   likes.src = 'assets/icons/heart-solid-black.svg'
   const likeCount = document.createElement('div')
   likeCount.setAttribute('id', 'like_count')
@@ -196,41 +203,40 @@ const StaticInfos = (medias, photographer) => {
   return staticInfos
 }
 
+// mediabox contient tous les paramètres du media (photoBox), son titre, le nombre de like qui peut être incrémenter
 const MediaBox = (media, onclick) => {
   const mediaBox = document.createElement('div')
   mediaBox.setAttribute('class', 'media_box')
-  // mediaBox.setAttribute('role', 'option')
-  // creer un lien qui va contenir photoBox
-  // mettre le click sur le lien
-  // mettre # dans href du lien
   const photoBoxLink = document.createElement('a')
   photoBoxLink.setAttribute('href', '#icon-next')
   const photoBox = document.createElement('div')
   photoBox.setAttribute('class', 'photo_box')
   photoBox.addEventListener('click', onclick)
+  photoBoxLink.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Enter') {
+      onclick()
+    }
+  })
+
   photoBox.setAttribute('role', 'option')
   const photoParameters = document.createElement('div')
   photoParameters.setAttribute('class', 'photo_parameters')
-  // il faut appeler un composant abstrait ThumbnailMedia
-  // const photoMedia = PhotoMedia(media)
+  // on appelle un composant abstrait ThumbnailMedia
   const thumbnailMedia = ThumbnailMedia(media)
   const photoDescription = PhotoDescription(media)
   const numberOfLike = NumberOfLike(media)
-
   mediaBox.appendChild(photoBoxLink)
   photoBoxLink.appendChild(photoBox)
-  // mediaBox.appendChild(photoBox)
   mediaBox.appendChild(photoParameters)
   photoParameters.appendChild(photoDescription)
   photoParameters.appendChild(numberOfLike)
-  // photoBox.appendChild(photoMedia)
   photoBox.appendChild(thumbnailMedia)
 
   return mediaBox
 }
 
 /**
- *
+ * pattern factory
  * ThumbnailMedia
  * va verifier si media.image exist => va retourner un PhotoMedia
  * sinon, si media.video exist => va retourner un VideoMedia
@@ -263,6 +269,7 @@ const PhotoMedia = (media) => {
   return photoMedia
 }
 
+// titre du media
 const PhotoDescription = (media) => {
   const photoDescription = document.createElement('h4')
   photoDescription.setAttribute('class', 'photo_description')
@@ -270,18 +277,19 @@ const PhotoDescription = (media) => {
 
   return photoDescription
 }
-// pqasser le nombre
-// passer un fonction callback onclick
+// nombre de like qui peut-être incrémenter
 const NumberOfLike = (media) => {
   const likeContainer = document.createElement('div')
   likeContainer.setAttribute('class', 'like_container')
   const numberOfLike = document.createElement('span')
   numberOfLike.setAttribute('class', 'number_of_like')
   numberOfLike.textContent = media.likes
-  const iconLike = document.createElement('img')
+  const iconLike = document.createElement('input')
   iconLike.setAttribute('class', 'icon_like')
+  iconLike.setAttribute('type', 'image')
   iconLike.src = 'assets/icons/heart-solid.svg'
-  iconLike.setAttribute('alt', 'likes')
+  iconLike.setAttribute('alt', 'iconlike')
+  iconLike.setAttribute('aria-description', 'bouton jaime')
   likeContainer.appendChild(numberOfLike)
   likeContainer.appendChild(iconLike)
   iconLike.addEventListener('click', () => {
@@ -293,6 +301,7 @@ const NumberOfLike = (media) => {
   return likeContainer
 }
 
+// selecteur par catégorie
 const SortSelect = () => {
   let opened = false
 
@@ -317,11 +326,11 @@ const SortSelect = () => {
   const selectContainer = document.createElement('div')
   selectContainer.setAttribute('id', 'select_container')
   selectContainer.setAttribute('role', 'listbox')
-  // deplacer l'image dans la nav
-  // ajouter tabindex sur l'image
+  selectContainer.setAttribute('tabindex', '0')
+  selectContainer.setAttribute('aria-description', 'filtre média')
   const angleOpen = document.createElement('img')
   angleOpen.src = 'assets/icons/angle-down-white.svg'
-  angleOpen.setAttribute('alt', 'angle open')
+  angleOpen.setAttribute('alt', 'ouverture et fermeture liste sélecteur')
   angleOpen.setAttribute('class', 'angle_open')
   angleOpen.setAttribute('role', 'button')
   angleOpen.setAttribute('ariahaspopup', 'listbox')
@@ -377,6 +386,13 @@ const SortSelect = () => {
     }
   }
 
+  angleOpen.addEventListener('keypress', openSelectContainerKeyControl)
+  function openSelectContainerKeyControl (ev) {
+    if (ev.key === 'Enter') {
+      ev.preventDefault()
+      angleOpen.click()
+    }
+  }
   return selectContainer
 }
 
