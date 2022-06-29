@@ -139,6 +139,7 @@ const CurrentMedia = (media) => {
 const VideoPlayer = (media) => {
   mediaElement = document.createElement('video')
   mediaElement.setAttribute('class', 'media-element')
+  mediaElement.setAttribute('controls', 'true')
   mediaElement.src = `assets/images/${Number(photographerId)}/${media.video}`
 
   return mediaElement

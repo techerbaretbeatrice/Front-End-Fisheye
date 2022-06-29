@@ -290,24 +290,12 @@ body {
 
 }
 
-.angle_open {
+#angle_open {
     position: absolute;
     z-index: 102;
     width: 16px;
-    height: 10px;
-    right: 10px;
+    right: 15px;
     top: 25px;
-    cursor: pointer;
-}
-
-.angle_close {
-    display: none;
-    position: absolute;
-    z-index: 103;
-    width: 16px;
-    height: 10px;
-    right: 5px;
-    top: 5px;
     cursor: pointer;
 }
 
@@ -321,7 +309,6 @@ body {
     width: 90%;
     height: 70px;
 }
-
 
 .popularity {
     text-decoration: none;
@@ -347,19 +334,6 @@ body {
     border-top: solid #FFFFFF;
     align-items: center;
 }
-
-.date nav a::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    transform: translateX(0%) scaleX(1);
-    transform-origin: 0%;
-    width: 100%;
-    height: 3px;
-    background-color: #FFFFFF;
-}
-
 
 .title {
     display: none;

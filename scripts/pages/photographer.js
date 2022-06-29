@@ -4,7 +4,7 @@ const photographerId = params.get('photographer')
 const order = params.get('order')
 console.info(photographerId)
 
-// permet de récupérer et afficher les datas photographe
+// permet de récupérer et afficher les datas
 const displayPhotographer = async () => {
   // eslint-disable-next-line no-undef
   const data = await fetchData()
@@ -253,7 +253,7 @@ const ThumbnailMedia = (media) => {
 const VideoMedia = (media) => {
   const videoMedia = document.createElement('video')
   videoMedia.setAttribute('class', 'video_media')
-
+  videoMedia.setAttribute('controls', 'true')
   videoMedia.src = `assets/images/${media.photographerId}/${media.video}`
   videoMedia.setAttribute('alt', media.title)
 
@@ -331,7 +331,7 @@ const SortSelect = () => {
   const angleOpen = document.createElement('img')
   angleOpen.src = 'assets/icons/angle-down-white.svg'
   angleOpen.setAttribute('alt', 'ouverture et fermeture liste sélecteur')
-  angleOpen.setAttribute('class', 'angle_open')
+  angleOpen.setAttribute('id', 'angle_open')
   angleOpen.setAttribute('role', 'button')
   angleOpen.setAttribute('ariahaspopup', 'listbox')
   angleOpen.setAttribute('tabindex', '0')
