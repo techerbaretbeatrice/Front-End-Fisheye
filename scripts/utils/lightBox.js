@@ -104,9 +104,6 @@ class LightBoxSingleton {
     document.body.appendChild(LightBox.getInstance().lightBoxModal)
 
     LightBox.getInstance().displayMedia()
-
-    console.log(medias)
-    console.log(index)
   }
   displayMedia () {
     const currentMedia = LightBox.getInstance().medias[LightBox.getInstance().index]

@@ -1,7 +1,6 @@
 const displayPhotographerList = async () => {
   // eslint-disable-next-line no-undef
   const data = await fetchData()
-  console.log(data)
   const photographers = data.photographers
   for (const photographer of photographers) {
     const card = Card(photographer)
@@ -30,7 +29,6 @@ const Card = (photographer) => {
 const Photo = (photographer) => {
   const photo = document.createElement('img')
   photo.setAttribute('class', 'photographer_img')
-  console.info(photographer)
   // creer un lien qui contient assets/photographers/PORTRAIT
   photo.src = `assets/photographers/${photographer.portrait}`
   photo.setAttribute('alt', photographer.name)

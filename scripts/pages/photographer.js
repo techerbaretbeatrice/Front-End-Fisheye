@@ -2,7 +2,6 @@
 const params = (new URL(document.location)).searchParams
 const photographerId = params.get('photographer')
 const order = params.get('order')
-console.info(photographerId)
 
 // permet de récupérer et afficher les datas
 const displayPhotographer = async () => {
@@ -10,12 +9,10 @@ const displayPhotographer = async () => {
   const data = await fetchData()
   const photographers = data.photographers // utiliser find()
   const photographer = photographers.find(photographer => photographer.id === Number(photographerId))
-  console.log(photographer)
   const infoCard = InfoCard(photographer)
   document.getElementById('photographer_main').appendChild(infoCard)
   // eslint-disable-next-line no-undef
   ModalForm(photographer)
-  console.log(infoCard)
 }
 
 // on créer la fonction qui permet de retourner la card info de la page photographe
@@ -23,7 +20,6 @@ const displayPhotographer = async () => {
 const InfoCard = (photographer) => {
   const infoCard = document.createElement('section')
   infoCard.setAttribute('class', 'photographer_infos')
-  console.log(infoCard)
   const infoBox = document.createElement('div')
   infoBox.setAttribute('class', 'info_box')
   const title = Title(photographer)
@@ -39,7 +35,6 @@ const InfoCard = (photographer) => {
   infoCard.appendChild(contactButton)
   infoCard.appendChild(photo)
   infoCard.appendChild(contactModal)
-  console.log(infoCard)
 
   return infoCard
 }
@@ -49,7 +44,6 @@ const Title = (photographer) => {
   title.setAttribute('class', 'photographer_name name--size')
   title.setAttribute('tabindex', '0')
   title.textContent = photographer.name
-  console.log(title)
   return title
 }
 // permet de retourner les infos ville ...
@@ -79,7 +73,6 @@ const ContactButton = (photographer) => {
 const Photo = (photographer) => {
   const photo = document.createElement('img')
   photo.setAttribute('class', 'photographer_img')
-  console.info(photographer)
   photo.src = `assets/photographers/${photographer.portrait}`
   photo.setAttribute('alt', photographer.name)
   return photo
@@ -94,13 +87,9 @@ const displayMedia = async () => {
   const data = await fetchData()
   const media = data.media
   const photographer = data.photographers.find(photographer => photographer.id === Number(photographerId))
-  console.log(photographer)
   const medias = media
     .filter(medias => medias.photographerId === Number(photographerId))
     .sort((a, b) => {
-      console.log('a', a)
-      console.log('b', b)
-      console.log('comparaison like', a.likes < b.likes)
       switch (order) {
         case 'popularity':
           if (a.likes < b.likes) return 1
@@ -123,7 +112,6 @@ const displayMedia = async () => {
       }
       return 1
     })
-  console.log(medias.likes)
 
   //* fonction
   // * - selon la valeur de `order`:
@@ -133,7 +121,6 @@ const displayMedia = async () => {
   //*   - le titre
   //* dans sort, les parametres sont
 
-  console.log(medias)
   const mediaAll = document.createElement('section')
   mediaAll.setAttribute('class', 'media_all')
   document.getElementById('photographer_main').appendChild(mediaAll)
@@ -151,21 +138,19 @@ const displayMedia = async () => {
   filterContainer.appendChild(SortSelect())
   mediaAll.appendChild(filterContainer)
   mediaAll.appendChild(mediaContainer)
-  console.log(filterContainer)
   const staticInfos = StaticInfos(medias, photographer)
   mediaContainer.appendChild(staticInfos)
 
-  // instancier la lightbox dans displayMedias
   //  pour chaque mediaBox, on ajout l'évènement au click qui appelera la method open de la lightbox
   // resultat attendu: console log de la liste des medias et de l'index du media qui a genere l'évènement
   for (const index in medias) {
     const media = medias[index]
     const mediaBox = MediaBox(media, (event) => {
+      // on appelle ici open() qui instanciera la Lightbox
       // eslint-disable-next-line no-undef
       LightBox.open(medias, index)
     })
     mediaContainer.appendChild(mediaBox)
-    console.log(mediaBox)
   }
 }
 // faire la somme des likes par media
@@ -189,14 +174,11 @@ const StaticInfos = (medias, photographer) => {
   infosLikes.appendChild(likeCount)
   staticInfos.appendChild(infosLikes)
   staticInfos.appendChild(photographerPrice)
-  console.log(photographerPrice)
-  console.log(infosLikes)
   infosLikes.appendChild(likes)
   const totalLikes = medias.reduce(
     (previousValue, currentValue) => previousValue + currentValue.likes,
     0
   )
-  console.log(totalLikes)
   likeCount.textContent = totalLikes
   photographerPrice.textContent = `${photographer.price}€/jour`
 
@@ -209,6 +191,7 @@ const MediaBox = (media, onclick) => {
   mediaBox.setAttribute('class', 'media_box')
   const photoBoxLink = document.createElement('a')
   photoBoxLink.setAttribute('href', '#icon-next')
+  photoBoxLink.setAttribute('title', media.title)
   const photoBox = document.createElement('div')
   photoBox.setAttribute('class', 'photo_box')
   photoBox.addEventListener('click', onclick)
@@ -284,11 +267,13 @@ const NumberOfLike = (media) => {
   const numberOfLike = document.createElement('span')
   numberOfLike.setAttribute('class', 'number_of_like')
   numberOfLike.textContent = media.likes
-  const iconLike = document.createElement('input')
+  const iconLike = document.createElement('button')
+  const imgLike = document.createElement('img')
   iconLike.setAttribute('class', 'icon_like')
   iconLike.setAttribute('type', 'image')
-  iconLike.src = 'assets/icons/heart-solid.svg'
-  iconLike.setAttribute('alt', 'iconlike')
+  imgLike.src = 'assets/icons/heart-solid.svg'
+  iconLike.appendChild(imgLike)
+  imgLike.setAttribute('alt', 'iconlike')
   iconLike.setAttribute('aria-description', 'bouton jaime')
   likeContainer.appendChild(numberOfLike)
   likeContainer.appendChild(iconLike)
@@ -364,8 +349,6 @@ const SortSelect = () => {
   selectList.appendChild(date)
   selectList.appendChild(title)
   selectContainer.appendChild(selectList)
-
-  console.log(itemSelect)
 
   angleOpen.addEventListener('click', openSelectContainerControl)
   function openSelectContainerControl (ev) {

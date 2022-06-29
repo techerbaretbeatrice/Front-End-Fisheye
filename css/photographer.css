@@ -209,6 +209,13 @@ body {
     margin-top: 10px;
     color: #901C1C;
     cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.icon_like img {
+    width: 17.5px;
+    height: 18.35px;
 }
 
 #static_infos {
@@ -374,6 +381,8 @@ body {
     width: 42px;
     height: 42px;
     cursor: pointer;
+    background: none;
+    border: none;
 }
 
 .modal_header {
