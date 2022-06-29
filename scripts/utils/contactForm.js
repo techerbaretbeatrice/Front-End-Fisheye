@@ -1,3 +1,4 @@
+
 // ouvrir la modale
 function modalOpen () {
   const modalContact = document.getElementById('contact_modal')
@@ -85,7 +86,10 @@ const ContactForm = () => {
 
   function submitForm (event) {
     event.preventDefault()
-
+    console.log(event.currentTarget.lastname.value)
+    console.log(event.currentTarget.firstname.value)
+    console.log(event.currentTarget.email.value)
+    console.log(event.currentTarget.message.value)
     form.reset()
   }
 
