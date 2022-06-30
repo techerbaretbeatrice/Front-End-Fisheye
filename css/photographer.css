@@ -211,6 +211,7 @@ body {
     cursor: pointer;
     border: none;
     background: none;
+    padding: 0px;
 }
 
 .icon_like img {
@@ -383,6 +384,7 @@ body {
     cursor: pointer;
     background: none;
     border: none;
+    padding: 0px;
 }
 
 .modal_header {

@@ -111,6 +111,7 @@ class LightBoxSingleton {
 
     const titleElement = document.createElement('h2')
     titleElement.setAttribute('id', 'title-element')
+    titleElement.setAttribute('tabindex', '0')
     titleElement.textContent = currentMedia.title
 
     LightBox.getInstance().mediaLightBox.textContent = ''

@@ -106,7 +106,7 @@ const ModalForm = (photographer) => {
   closeButton.setAttribute('id', 'close_button')
   closeButton.setAttribute('type', 'image')
   closeImg.setAttribute('alt', 'fermer formulaire de contact')
-  closeImg.src = 'assets/icons/xmark-white.svg'
+  closeImg.src = 'assets/icons/close.svg'
   closeButton.appendChild(closeImg)
   modalContact.appendChild(closeButton)
 
