@@ -29,7 +29,7 @@ h1 {
     height: 50px;
 }
 
-p{
+p {
     margin: 0px;
 }
 
@@ -52,40 +52,40 @@ p{
     text-decoration: none;
 }
 
-#main .photographer_card  .photographer_name  {
+#main .photographer_card .photographer_name {
     color: #D3573C;
     font-size: 36px;
-    text-decoration: none ;
+    text-decoration: none;
     margin-bottom: 0px;
     line-height: 47px;
     font-weight: 400;
     font-style: normal;
 }
 
-#main .photographer_card .photographer_img  {
+#main .photographer_card .photographer_img {
     height: 200px;
     width: 200px;
     border-radius: 100px;
     object-fit: cover;
 }
 
-.photographer_info{
+.photographer_info {
     text-align: center;
 }
 
-.photographer_city{
+.photographer_city {
     color: #D3573C;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 17px;
 }
 
-.tagline{
-    font-size : 10px;
-    line-height: 13px;
+.tagline {
+    font-size: 14px;
+    line-height: 16px;
 }
 
-.price{
-    font-size: 9px;
-    line-height: 12px;
+.price {
+    font-size: 12px;
+    line-height: 14px;
     color: #757575;
 }
